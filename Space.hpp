@@ -2,7 +2,7 @@
 //  Space.hpp
 //  Fast evaluation of Helmholtz potential
 //
-//  Created by Eduard on 4/30/23.
+//  Created by Eduard on 5/1/23.
 //
 
 #ifndef Space_hpp
@@ -15,12 +15,10 @@ namespace Geometry{
 class Space{
 public:
     //OCF
-    Space(){}
+    Space();
     Space(const Space &aSpace);
     Space& operator=(const Space &aSpace);
-    ~Space();
-
-    
+    ~Space();  
     
 };
 
