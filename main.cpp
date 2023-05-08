@@ -16,3 +16,9 @@ int main() {
     return 0;
 }
  
+/*
+ Next steps:
+ - create struct of a box
+ - create a coordinate sub struct
+ - create particles class
+ */

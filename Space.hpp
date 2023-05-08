@@ -21,9 +21,25 @@ public:
     ~Space(){};
     
     int size;
+    
+    /*
+     box struct that is a part of space
+     has center coordinate and corner coordinates
+     needs:
+        1) find center based on corners
+        2) check that coordinates do not exceed the space size
+        3) be a child class of a space class
+     */
+    
+    /*
+     coordinate struct:
+     has x,y,z, have to be smaller than the space size
+     */
 };
 
 
 }
+
+
 
 #endif /* Space_hpp */
