@@ -6,10 +6,12 @@
 //
 
 #include <iostream>
+#include "Space.hpp"
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
+int main() {
+
     std::cout << "Hello, World!\n";
+    Geometry::Space TheSpace();
     return 0;
 }
  
