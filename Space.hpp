@@ -15,11 +15,12 @@ namespace Geometry{
 class Space{
 public:
     //OCF
-    Space();
-    Space(const Space &aSpace);
+    Space(int size) : size(size){};
+    Space(const Space &aSpace) : size(aSpace.size){};
     Space& operator=(const Space &aSpace);
-    ~Space();  
+    ~Space(){};
     
+    int size;
 };
 
 
