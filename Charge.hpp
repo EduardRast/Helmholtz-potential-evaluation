@@ -8,11 +8,18 @@
 #ifndef Charge_hpp
 #define Charge_hpp
 
-#include <stdio.h>
+#include <iostream>
 
 /*
  - has coordinate, charge
  - randomly generate particles in the space with unique coordinates and random charges
  */
+
+struct Charge{
+    //OCF
+    
+    //~OCF
+    
+};
 
 #endif /* Charge_hpp */

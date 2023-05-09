@@ -8,19 +8,22 @@
 #ifndef Space_hpp
 #define Space_hpp
 
-#include <stdio.h>
+#include <iostream>
 
 namespace Geometry{
 
 class Space{
 public:
     //OCF
+    
+    //make static + condition 
     Space(int size) : size(size){};
     Space(const Space &aSpace) : size(aSpace.size){};
     Space& operator=(const Space &aSpace);
     ~Space(){};
+    //~OCF
     
-    int size;
+    int size = 0;
     
     /*
      box struct that is a part of space
@@ -36,8 +39,19 @@ public:
      has x,y,z, have to be smaller than the space size
      */
 };
+/*
+class Coordinate : Space{
+public:
+    //OCF
+    Coordinate(int x, int y, int z): x(x), y(y), z(z){};
+    //~OCF
+    
+    int x;
+    int y;
+    int z;
+};
 
-
+*/
 }
 
 
