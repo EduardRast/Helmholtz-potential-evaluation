@@ -11,7 +11,7 @@
 int main() {
 
     std::cout << "Hello, World!\n";
-    Geometry::Space TheSpace(1000);
+    Geometry::Space TheSpace(4);
     std::cout << TheSpace.size <<std::endl;
     return 0;
 }
