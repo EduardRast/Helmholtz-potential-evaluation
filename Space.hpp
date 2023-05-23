@@ -51,6 +51,8 @@ public:
     //~OCF
     
     //methods
+    Coordinate generate_random_coordinates();
+    int get_size();
     //generate random charges
     
     //variables
