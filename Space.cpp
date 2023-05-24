@@ -6,54 +6,51 @@
 //
 
 #include <random>
+#include <vector>
 #include "Space.hpp"
 
 using namespace Geometry;
 
 
-Coordinate Space::generate_random_coordinates(){
-static bool check = 0;
-int size = this->size;
-static int** space = new int*[size];
-    if(!check){
+Coordinate Space::generate_random_coordinates(bool print){
+    static bool check = 1;
+    static std::vector<Coordinate> space;
+    if (check){
+    int size = 500;
+    for (int i = 0; i< size*size*size;){
         
-        for (int i = 0; i<size*size*size;i++){
-            space[i] = new int[3];
-        }
-        
-        for (int i = 0; i< size*size*size;){
+        for (int z = 0; z<size; z++){
             
-            for (int z = 0; z<size; z++){
+            for (int y = 0; y<size; y++){
                 
-                for (int y = 0; y<size; y++){
-                    
-                    for (int x = 0; x<size; x++){
-                        
-                        space[i][0] = x;
-                        space[i][1] = y;
-                        space[i][2] = z;
-                        //std::cout<<i<<" - "<<space[i][0] << " " << space [i][1] << " " << space[i][2] << "\n";
-                        i++;
-                    }
+                for (int x = 0; x<size; x++){
+                    Coordinate aCoordinate(x,y,z);
+                    space.push_back(aCoordinate);
+                    i++;
                 }
             }
-            
         }
-       
-       std::random_device rd;
-       std::mt19937 g(rd());
-       std::shuffle(&space[0][0],&space[size*size*size-1][2],g);
-       check=1;
     }
     
-    static int count = 0;
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(space.begin(),space.end(),g);
+        
+    check = false;
+    }
+    if (print){
+        for (int i = 0; i<space.size();i++){
+                std::cout<<space[i].x<<" "<<space[i].y<<" "<<space[i].z;
+            std::cout<<"\t";
+        }
+        std::cout<<std::endl;
+    }
     
-    Coordinate aCoordinate(space[count][0],space[count][1],space[count][2]);
-    
-    return aCoordinate;
+    static int current = 0;
+    Coordinate theCoordinate(space.at(current).x,space.at(current).y,space.at(current).z);
+    current++;
+    return theCoordinate;
 
-    
-    
 }
 
 

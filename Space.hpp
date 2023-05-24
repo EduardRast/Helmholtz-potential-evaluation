@@ -19,7 +19,6 @@ public:
     //OCF
     Coordinate(int x, int y, int z): x(x), y(y), z(z){};
     Coordinate(const Coordinate &aCoordinate) : x(aCoordinate.x), y(aCoordinate.y), z(aCoordinate.z) {};
-    Coordinate& operator=(const Coordinate &aCoordinate);
     ~Coordinate(){};
     //~OCF
     
@@ -51,7 +50,7 @@ public:
     //~OCF
     
     //methods
-    Coordinate generate_random_coordinates();
+    Coordinate generate_random_coordinates(bool print = 0);
     int get_size();
     //generate random charges
     
