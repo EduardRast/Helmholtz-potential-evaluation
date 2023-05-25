@@ -9,13 +9,14 @@
 #define Space_hpp
 
 #include <iostream>
+#include <random>
+#include <vector>
 #include <cmath>
 
 namespace Geometry{
 
 struct Coordinate{
 
-public:
     //OCF
     Coordinate(int x, int y, int z): x(x), y(y), z(z){};
     Coordinate(const Coordinate &aCoordinate) : x(aCoordinate.x), y(aCoordinate.y), z(aCoordinate.z) {};
@@ -27,13 +28,16 @@ public:
     int z;
 };
 
-class Charge{
+struct Charge{
     //OCF
+    Charge(int charge, Coordinate aCoordinate) : charge(charge), aCoordinate(aCoordinate){};
+    Charge(const Charge &aCharge) : charge(aCharge.charge), aCoordinate(aCharge.aCoordinate) {};
+    ~Charge(){};
     //~OCF
         
     //variables
-    int charge = 0;
-    Coordinate aCoordinate = Coordinate(0,0,0);
+    int charge;
+    Coordinate aCoordinate;
     
     
 };
@@ -50,12 +54,13 @@ public:
     //~OCF
     
     //methods
-    Coordinate generate_random_coordinates(bool print = 0);
-    int get_size();
+    Coordinate generate_random_coordinate(bool print = 0);
+    bool generate_uniform_random_charges(int percent);
     //generate random charges
     
     //variables
     int size = 0;
+    std::vector<Charge> charges;
     //needs list of charges
 };
 

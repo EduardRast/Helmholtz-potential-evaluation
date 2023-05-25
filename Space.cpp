@@ -4,19 +4,22 @@
 //
 //  Created by Eduard on 5/1/23.
 //
-
+#include <iostream>
 #include <random>
 #include <vector>
+#include <cmath>
+#include <ctime>
+#include <cstdlib>
 #include "Space.hpp"
 
 using namespace Geometry;
 
 
-Coordinate Space::generate_random_coordinates(bool print){
+Coordinate Space::generate_random_coordinate(bool print){
     static bool check = 1;
     static std::vector<Coordinate> space;
     if (check){
-    int size = 500;
+    int size = this->size;
     for (int i = 0; i< size*size*size;){
         
         for (int z = 0; z<size; z++){
@@ -53,6 +56,15 @@ Coordinate Space::generate_random_coordinates(bool print){
 
 }
 
-
-int Space::get_size(){return size;}
+bool Space::generate_uniform_random_charges(int percent){
+    if (this->charges.size()>1){
+        return 1;
+    }
+    std::srand(int(std::time(nullptr)));
+    for (int i = 0; i<=std::floor(std::pow(this->size,3)*percent/100); i++) {
+        Charge q(std::rand()%6+1,generate_random_coordinate());
+        this->charges.push_back(q);
+    }
+    return 1;
+}
 
