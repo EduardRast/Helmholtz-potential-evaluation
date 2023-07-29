@@ -18,16 +18,22 @@ namespace Geometry{
 struct Coordinate{
 
     //OCF
-    Coordinate(int x, int y, int z): x(x), y(y), z(z){};
-    Coordinate(const Coordinate &aCoordinate) : x(aCoordinate.x), y(aCoordinate.y), z(aCoordinate.z) {};
+    Coordinate(){};
+    //Coordinate(double x, double y, double z): x(x), y(y), z(z){};
+    //Coordinate(const Coordinate &aCoordinate) : x(aCoordinate.x), y(aCoordinate.y), z(aCoordinate.z) {};
     ~Coordinate(){};
     //~OCF
     
-    int x;
-    int y;
-    int z;
+    double x;
+    double y;
+    double z;
 };
 
+
+
+
+
+/*
 struct Charge{
     //OCF
     Charge(int charge, Coordinate aCoordinate) : charge(charge), aCoordinate(aCoordinate){};
@@ -63,6 +69,7 @@ public:
     std::vector<Charge> charges;
     //needs list of charges
 };
+*/
 
 
 }

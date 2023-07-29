@@ -14,7 +14,7 @@
 
 using namespace Geometry;
 
-
+/*
 Coordinate Space::generate_random_coordinate(bool print){
     static bool check = 1;
     static std::vector<Coordinate> space;
@@ -66,5 +66,7 @@ bool Space::generate_uniform_random_charges(int percent){
         this->charges.push_back(q);
     }
     return 1;
+
 }
+*/
 

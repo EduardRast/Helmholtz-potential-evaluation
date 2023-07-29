@@ -6,3 +6,8 @@
 //
 
 #include "Box.hpp"
+
+std::ostream& operator<<(std::ostream& os, const Box& aBox){
+    os<<"Hello, I'm a box"<<std::endl;
+    return os;
+}
