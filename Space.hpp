@@ -18,9 +18,9 @@ namespace Geometry{
 struct Coordinate{
 
     //OCF
-    Coordinate(){};
-    //Coordinate(double x, double y, double z): x(x), y(y), z(z){};
-    //Coordinate(const Coordinate &aCoordinate) : x(aCoordinate.x), y(aCoordinate.y), z(aCoordinate.z) {};
+    //Coordinate(){};
+    Coordinate(double Xp = 0,double Yp = 0, double Zp = 0);
+    Coordinate(const Coordinate &aCoordinate){};
     ~Coordinate(){};
     //~OCF
     

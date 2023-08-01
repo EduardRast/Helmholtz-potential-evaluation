@@ -14,6 +14,16 @@
 
 using namespace Geometry;
 
+
+Coordinate::Coordinate(double Xp, double Yp , double Zp){
+    this->x = Xp;
+    this->y = Yp;
+    this->z = Zp;
+    
+    
+}
+
+
 /*
 Coordinate Space::generate_random_coordinate(bool print){
     static bool check = 1;
