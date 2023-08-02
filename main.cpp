@@ -75,13 +75,20 @@ int main() {
     std::cout<<"Hello World \n";
     
     Box TheBox;
+    Geometry::Coordinate aCoordinate1(1.0,2.2,3.3);
     
     std::cout<<TheBox;
+    
+    Tree theTree(1024, 4);
+    Box* aBox = theTree.new_Box_childfree(aCoordinate1, 1, 3);
+    std::cout<<*aBox;
 
     //test of the indexes
-    test();
-
-    
+    //test();
+    int a = 65;
+    int b = 4;
+    int c = a/b;
+    std::cout<<c<<"\n";
     
     return 0;
 }

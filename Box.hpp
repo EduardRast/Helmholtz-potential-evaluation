@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <cmath>
 
 #include "Space.hpp"
 
@@ -25,7 +26,7 @@ struct Box{  // node for the tree
     Box* children[8];
     
     int level;
-    int length;
+    double length;
     int index;
     Geometry::Coordinate edge;
     
@@ -38,11 +39,12 @@ struct Box{  // node for the tree
 
 
 class Tree{  //tree that contains boxes
+public:
     //OCF
     
     Tree(double Dp, int Lp, float Gp = 3);
     Tree(const Tree &aTree);
-    ~Tree();
+    ~Tree(){};
     //~OCF
     
     double D; //length of the largest box
@@ -56,8 +58,11 @@ class Tree{  //tree that contains boxes
     
     void print_tree(int levels = 0); //print the tree with the option to pring part of it is the parameter is passed
     
-private:
-    void assign_children(Box* aBox); //assigns children to a box
+//private:
+    bool assign_children(Box* aBox); //assigns children to a box
+    Box* new_Box_childfree(Geometry::Coordinate anEdge, int aLevel ,int anIndex, Box* aParent = NULL); //creates a new box based on the parameters pased
+    
+    double get_length(int aLevel); //returns length of a box based on its level
 };
 
 

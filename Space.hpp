@@ -20,7 +20,7 @@ struct Coordinate{
     //OCF
     //Coordinate(){};
     Coordinate(double Xp = 0,double Yp = 0, double Zp = 0);
-    Coordinate(const Coordinate &aCoordinate){};
+    Coordinate(const Coordinate &aCoordinate);
     ~Coordinate(){};
     //~OCF
     
