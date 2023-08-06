@@ -30,8 +30,9 @@ void test(){
             }
             std::cout<<std::endl;
         }
-        std::cout<<"\n\n";
+        std::cout<<"\n";
     }
+    std::cout<<"\n\n";
     
     int second[4][4][4];
     
@@ -46,8 +47,9 @@ void test(){
             }
             std::cout<<std::endl;
         }
-        std::cout<<"\n\n";
+        std::cout<<"\n";
     }
+    std::cout<<"\n\n";
     
     int third[8][8][8];
     
@@ -62,8 +64,9 @@ void test(){
             }
             std::cout<<std::endl;
         }
-        std::cout<<"\n\n";
+        std::cout<<"\n";
     }
+    std::cout<<"\n\n";
 }
 
 
@@ -72,17 +75,19 @@ void test(){
 int main() {
 
 
-    std::cout<<"Hello World \n";
+    std::cout<<"Start program \n";
     /*
     Box TheBox;
     Geometry::Coordinate aCoordinate1(1.0,2.2,3.3);
     
     std::cout<<TheBox;
     */
-    Tree theTree(512, 4);
+    Tree theTree(1024,4);
     //Box* aBox = theTree.new_Box_childfree(aCoordinate1, 1, 3);
     //std::cout<<*aBox;
+     theTree.print_tree();
 
+    //test();
     
     return 0;
 }

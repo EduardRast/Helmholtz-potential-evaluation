@@ -10,8 +10,9 @@
     //Box   //Box
 
 std::ostream& operator<<(std::ostream& os, const Box& aBox){
-    os<<"Hello, I'm a box"<<std::endl;
-    os<<"index: "<<aBox.index<<"\t length: "<<aBox.length<<"\t level: "<<aBox.level<<std::endl;
+   // os<<"Hello, I'm a box"<<std::endl;
+    os<<"index: "<<aBox.index<<"\t"<<" length: "<<aBox.length<<"    ";
+    if(aBox.parent!=NULL){std::cout<<"parent index: "<<aBox.parent->index<<"\t\t";}
     os<<"edge: \t"<<"x: "<<aBox.edge.x<<"\t"<<"y: "<<aBox.edge.y<<"\t"<<"z: "<<aBox.edge.z<<std::endl;
     return os;
 }
@@ -24,16 +25,30 @@ std::ostream& operator<<(std::ostream& os, const Box& aBox){
 Tree::Tree(double Dp, int Lp, float Gp){
     
     //setting up parameters
-    std::cout<<"Generating tree\n";
+    std::cout<<"Generating tree ... ";
     this->D = Dp;
     this->L = Lp;
     this->g = Gp;
     
     //initializing the tree
     root = new_Box_childfree(Geometry::Coordinate(0,0,0), 0, 0);
-    assign_children(root);
-    print_tree();
-    std::cout<<"end for now \n";
+//    assign_children(root);
+    
+    assign_branch(root);
+    root->parent = NULL;
+    
+    std::cout<<"tree initialized \n";
+}
+
+//assign branch to the box
+bool Tree::assign_branch(Box* aBox){
+    if (aBox->level==(L-1)){ return 1;}
+    assign_children(aBox);
+    for(int i = 0; i<8; i++){
+        assign_branch(aBox->children[i]);
+    }
+    
+    return 1;
 }
 
 //assigns children to a box
@@ -92,15 +107,6 @@ bool Tree::assign_children(Box *aBox){
     return 1;
 }
 
-void Tree::print_tree(int levels){
-    std::cout<<"printing the tree \n";
-    std::cout<<*(root);
-    for (int i = 0; i<8; i++){
-        std::cout<<*(root->children[i]);
-    }
-}
-
-
 //creates a new box based on the parameters pased
 Box* Tree::new_Box_childfree(Geometry::Coordinate anEdge, int aLevel ,int anIndex, Box* aParent){
     
@@ -120,4 +126,45 @@ Box* Tree::new_Box_childfree(Geometry::Coordinate anEdge, int aLevel ,int anInde
 //returns length of a box based on its level
 double Tree::get_length(int aLevel){
     return(this->D*std::pow(2,-1*aLevel));
+}
+
+//Printing
+
+void Tree::print_tree(int levels){
+    std::cout<<"printing the tree: \n";
+    
+    std::cout<<"root: "<<*(root)<<"\n";
+    std::cout<<"\n\n\n";
+    
+    std::cout<<"Level 1:\n";
+    Box* current = root;
+    for(int i = 0; i<8; i++){
+        std::cout<<*(current->children[i]);
+    }
+    std::cout<<"\n\n\n";
+    
+    std::cout<<"Level 2:\n";
+    for(int i = 0; i<8; i++){
+        Box* current_1 = current->children[i];
+        for(int j = 0; j<8; j++){
+        std::cout<<*(current_1->children[j]);
+        }
+        std::cout<<"\n";
+    }
+    std::cout<<"\n\n\n";
+    
+    std::cout<<"Level 3:\n";
+    for(int i = 0; i<8; i++){
+        Box* current_1 = current->children[i];
+        for(int j = 0; j<8; j++){
+            Box* current_2 = current_1->children[j];
+            for(int k = 0; k<8; k++){
+                std::cout<<*(current_2->children[k]);
+            }
+            std::cout<<"\n";
+        }
+        std::cout<<"\n";
+    }
+    std::cout<<"\n\n\n";
+
 }
