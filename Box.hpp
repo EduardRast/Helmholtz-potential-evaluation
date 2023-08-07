@@ -36,7 +36,7 @@ struct Box{  // node for the tree
     
     friend std::ostream& operator<<(std::ostream& os, const Box& aBox);
 };
-
+ 
 
 class Tree{  //tree that contains boxes
 public:

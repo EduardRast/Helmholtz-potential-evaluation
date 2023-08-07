@@ -85,10 +85,12 @@ int main() {
     Tree theTree(1024,4);
     //Box* aBox = theTree.new_Box_childfree(aCoordinate1, 1, 3);
     //std::cout<<*aBox;
-     theTree.print_tree();
-
+    //theTree.print_tree();
+    Box* testing = theTree.find_box_by_index(2, 60);
+    std::cout<<"Testing the box: "<<*testing<<"\n";
     //test();
     
+   
     return 0;
 }
  

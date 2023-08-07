@@ -42,7 +42,7 @@ Tree::Tree(double Dp, int Lp, float Gp){
 
 //assign branch to the box
 bool Tree::assign_branch(Box* aBox){
-    if (aBox->level==(L-1)){ return 1;}
+    if (aBox->level==(L)){ return 1;}
     assign_children(aBox);
     for(int i = 0; i<8; i++){
         assign_branch(aBox->children[i]);
@@ -126,6 +126,51 @@ Box* Tree::new_Box_childfree(Geometry::Coordinate anEdge, int aLevel ,int anInde
 //returns length of a box based on its level
 double Tree::get_length(int aLevel){
     return(this->D*std::pow(2,-1*aLevel));
+}
+
+//find box by index and level
+Box* Tree::find_box_by_index(int level, int index){
+    //initializing the variables
+    int row_length,layer_lenght,number_layers,number_double_layers,number_rows,number_double_rows,number_boxes,number_double_boxes,parent_layer_length,parent_row_length,parent_index,child_index;
+    int current_index = index;
+    int current_level = level;
+    std::vector<int> parent_child_index;
+    Box* current = root;
+    
+    //find index of a child in a parent until root
+    while(current_level!=0){
+        
+        row_length = std::pow(2,current_level);
+        layer_lenght = std::pow(row_length,2);
+        number_layers = current_index/layer_lenght;
+        number_double_layers = number_layers/2;
+        number_rows = (current_index-number_layers*layer_lenght)/row_length;
+        number_double_rows = number_rows/2;
+        number_boxes = current_index - number_layers*layer_lenght - number_rows*row_length;
+        number_double_boxes = number_boxes/2;
+        parent_row_length = std::pow(2,current_level-1);
+        parent_layer_length = std::pow(parent_row_length,2);
+        
+        parent_index = number_double_layers*parent_layer_length + number_double_rows*parent_row_length+number_double_boxes;
+        
+        child_index = (number_layers - number_double_layers*2)*4 + (number_rows-number_double_rows*2)*2 + (number_boxes - number_double_boxes*2);
+        parent_child_index.push_back(child_index);
+        
+        current_level--;
+        current_index = parent_index;
+    }
+    
+    //traverse the tree to find the box
+    for(int i = (int)parent_child_index.size()-1; i>=0;i--){
+        int a = parent_child_index.at(i);
+        current = current->children[a];
+    }
+    
+    //check
+    if (current->index == index && current->level == level)
+    {return current;}
+    
+    return 0;
 }
 
 //Printing
