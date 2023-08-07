@@ -68,7 +68,7 @@ bool Tree::assign_children(Box *aBox){
     int parent_y_in = (parent_index-parent_z_in*parent_layer_length)/parent_row_length;
     int parent_x_in = parent_index - parent_z_in*parent_layer_length - parent_y_in*parent_row_length;
     
-    int child_start_index = child_layer_length*parent_z_in + child_row_length*parent_y_in + 2*parent_x_in;
+    int child_start_index = child_layer_length*parent_z_in*2 + child_row_length*parent_y_in*2 + parent_x_in*2;
     
     int child_indexes[8] = {
         child_start_index,
@@ -153,6 +153,7 @@ void Tree::print_tree(int levels){
     }
     std::cout<<"\n\n\n";
     
+
     std::cout<<"Level 3:\n";
     for(int i = 0; i<8; i++){
         Box* current_1 = current->children[i];
@@ -167,4 +168,23 @@ void Tree::print_tree(int levels){
     }
     std::cout<<"\n\n\n";
 
+/*
+    std::cout<<"Level 4:\n";
+    for(int i = 0; i<8; i++){
+        Box* current_1 = current->children[i];
+        for(int j = 0; j<8; j++){
+            Box* current_2 = current_1->children[j];
+            for(int k = 0; k<8; k++){
+                Box* current_3 = current_2->children[k];
+                for(int n = 0; n<8; n++){
+                    std::cout<<*(current_3->children[n]);
+                }
+                std::cout<<"\n";
+            }
+            std::cout<<"\n";
+        }
+        std::cout<<"\n";
+    }
+    std::cout<<"\n\n\n";
+*/
 }
