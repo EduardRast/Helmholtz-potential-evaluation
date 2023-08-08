@@ -76,19 +76,18 @@ int main() {
 
 
     std::cout<<"Start program \n";
-    /*
-    Box TheBox;
-    Geometry::Coordinate aCoordinate1(1.0,2.2,3.3);
-    
-    std::cout<<TheBox;
-    */
+
     Tree theTree(1024,4);
-    //Box* aBox = theTree.new_Box_childfree(aCoordinate1, 1, 3);
-    //std::cout<<*aBox;
+
     //theTree.print_tree();
-    Box* testing = theTree.find_box_by_index(2, 60);
-    std::cout<<"Testing the box: "<<*testing<<"\n";
-    //test();
+    Box* testing1 = theTree.find_box_by_index(4, 160, 1);
+    std::cout<<"Testing the box: "<<*testing1;
+    
+    Geometry::Coordinate aCoordinate1(1000,650,3.3);
+    
+    Box* testing2 = theTree.find_box_by_coordinate(4, aCoordinate1, 1);
+    std::cout<<"Testing the box: "<<*testing2;
+
     
    
     return 0;

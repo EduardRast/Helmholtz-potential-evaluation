@@ -85,7 +85,7 @@ bool Tree::assign_children(Box *aBox){
     double parent_x = aBox->edge.x;
     double parent_y = aBox->edge.y;
     double parent_z = aBox->edge.z;
-    double child_length = get_length(child_level);
+    double child_length = get_level_length(child_level);
     
     Geometry::Coordinate list_of_edges[8] =
         {Geometry::Coordinate(parent_x,parent_y,parent_z),
@@ -114,7 +114,7 @@ Box* Tree::new_Box_childfree(Geometry::Coordinate anEdge, int aLevel ,int anInde
     aBox->edge = anEdge;
     aBox->level = aLevel;
     aBox->index = anIndex;
-    aBox->length = get_length(aLevel);
+    aBox->length = get_level_length(aLevel);
     if(aParent!= NULL){aBox->parent = aParent;}
     for (int i = 0; i<8; i++){
         aBox->children[i] = NULL;
@@ -124,12 +124,12 @@ Box* Tree::new_Box_childfree(Geometry::Coordinate anEdge, int aLevel ,int anInde
 }
 
 //returns length of a box based on its level
-double Tree::get_length(int aLevel){
+double Tree::get_level_length(int aLevel){
     return(this->D*std::pow(2,-1*aLevel));
 }
 
 //find box by index and level
-Box* Tree::find_box_by_index(int level, int index){
+Box* Tree::find_box_by_index(int level, int index,bool check){
     //initializing the variables
     int row_length,layer_lenght,number_layers,number_double_layers,number_rows,number_double_rows,number_boxes,number_double_boxes,parent_layer_length,parent_row_length,parent_index,child_index;
     int current_index = index;
@@ -167,15 +167,51 @@ Box* Tree::find_box_by_index(int level, int index){
     }
     
     //check
-    if (current->index == index && current->level == level)
-    {return current;}
+    if(check){
+        if (current->index == index && current->level == level){
+            return current;
+            
+        }
+    }
     
-    return 0;
+    return current;
+}
+
+//find box by coordinate
+Box* Tree::find_box_by_coordinate(int level, Geometry::Coordinate aCoordinate, bool check){
+    
+    //initialization of the parameters
+    int x_int = (int)aCoordinate.x;
+    int y_int = (int)aCoordinate.y;
+    int z_int = (int)aCoordinate.z;
+    
+    int length = get_level_length(level);
+    int level_row_length = std::pow(2,level);
+    int level_layer_length = std::pow(level_row_length,2);
+    
+    //find the index
+    int number_layers = z_int/length;
+    int number_rows = y_int/length;
+    int number_boxes = x_int/length;
+    
+    int box_index = number_layers*level_layer_length+number_rows*level_row_length + number_boxes;
+    
+    //get the box
+    Box* aBox = find_box_by_index(level, box_index);
+    
+    //check
+    if(check){
+        if((aBox->edge.x>=aCoordinate.x && aBox->edge.x<(aCoordinate.x+length)) && (aBox->edge.y>=aCoordinate.y && aBox->edge.y<(aCoordinate.y+length)) && (aBox->edge.z>=aCoordinate.z && aBox->edge.z<(aCoordinate.z+length))){
+            return aBox;
+        }
+    }
+    return aBox;
 }
 
 //Printing
 
 void Tree::print_tree(int levels){
+
     std::cout<<"printing the tree: \n";
     
     std::cout<<"root: "<<*(root)<<"\n";
@@ -187,49 +223,53 @@ void Tree::print_tree(int levels){
         std::cout<<*(current->children[i]);
     }
     std::cout<<"\n\n\n";
-    
-    std::cout<<"Level 2:\n";
-    for(int i = 0; i<8; i++){
-        Box* current_1 = current->children[i];
-        for(int j = 0; j<8; j++){
-        std::cout<<*(current_1->children[j]);
-        }
-        std::cout<<"\n";
-    }
-    std::cout<<"\n\n\n";
-    
 
-    std::cout<<"Level 3:\n";
-    for(int i = 0; i<8; i++){
-        Box* current_1 = current->children[i];
-        for(int j = 0; j<8; j++){
-            Box* current_2 = current_1->children[j];
-            for(int k = 0; k<8; k++){
-                std::cout<<*(current_2->children[k]);
+    if (levels<1){
+        std::cout<<"Level 2:\n";
+        for(int i = 0; i<8; i++){
+            Box* current_1 = current->children[i];
+            for(int j = 0; j<8; j++){
+            std::cout<<*(current_1->children[j]);
             }
             std::cout<<"\n";
         }
-        std::cout<<"\n";
+        std::cout<<"\n\n\n";
     }
-    std::cout<<"\n\n\n";
-
-/*
-    std::cout<<"Level 4:\n";
-    for(int i = 0; i<8; i++){
-        Box* current_1 = current->children[i];
-        for(int j = 0; j<8; j++){
-            Box* current_2 = current_1->children[j];
-            for(int k = 0; k<8; k++){
-                Box* current_3 = current_2->children[k];
-                for(int n = 0; n<8; n++){
-                    std::cout<<*(current_3->children[n]);
+    
+    if(levels>2){
+        std::cout<<"Level 3:\n";
+        for(int i = 0; i<8; i++){
+            Box* current_1 = current->children[i];
+            for(int j = 0; j<8; j++){
+                Box* current_2 = current_1->children[j];
+                for(int k = 0; k<8; k++){
+                    std::cout<<*(current_2->children[k]);
                 }
                 std::cout<<"\n";
             }
             std::cout<<"\n";
         }
-        std::cout<<"\n";
+        std::cout<<"\n\n\n";
     }
-    std::cout<<"\n\n\n";
-*/
+    
+    if(levels<3){
+        std::cout<<"Level 4:\n";
+        for(int i = 0; i<8; i++){
+            Box* current_1 = current->children[i];
+            for(int j = 0; j<8; j++){
+                Box* current_2 = current_1->children[j];
+                for(int k = 0; k<8; k++){
+                    Box* current_3 = current_2->children[k];
+                    for(int n = 0; n<8; n++){
+                        std::cout<<*(current_3->children[n]);
+                    }
+                    std::cout<<"\n";
+                }
+                std::cout<<"\n";
+            }
+            std::cout<<"\n";
+        }
+        std::cout<<"\n\n\n";
+    }
+    
 }
