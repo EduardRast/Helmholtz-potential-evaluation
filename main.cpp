@@ -11,79 +11,32 @@
 #include <random>
 #include <ctime>
 #include <cstdlib>
+#include <chrono>
 
-#include "Space.hpp"
+#include "Tree.hpp"
 #include "Box.hpp"
-
-
-void test(){
-    int first[2][2][2];
-    
-    int counter = 0;
-    
-    for(int i = 0; i<2; i++){
-        for(int j = 0; j<2; j++){
-            for(int k = 0; k<2; k++){
-                first[i][j][k] = counter;
-                std::cout<<first[i][j][k]<<" ";
-                counter++;
-            }
-            std::cout<<std::endl;
-        }
-        std::cout<<"\n";
-    }
-    std::cout<<"\n\n";
-    
-    int second[4][4][4];
-    
-    counter = 0;
-    
-    for(int i = 0; i<4; i++){
-        for(int j = 0; j<4; j++){
-            for(int k = 0; k<4; k++){
-                second[i][j][k] = counter;
-                std::cout<<second[i][j][k]<<" ";
-                counter++;
-            }
-            std::cout<<std::endl;
-        }
-        std::cout<<"\n";
-    }
-    std::cout<<"\n\n";
-    
-    int third[8][8][8];
-    
-    counter = 0;
-    
-    for(int i = 0; i<8; i++){
-        for(int j = 0; j<8; j++){
-            for(int k = 0; k<8; k++){
-                third[i][j][k] = counter;
-                std::cout<<third[i][j][k]<<" ";
-                counter++;
-            }
-            std::cout<<std::endl;
-        }
-        std::cout<<"\n";
-    }
-    std::cout<<"\n\n";
-}
-
-
+#include "Source.hpp"
+#include "Coordinate.hpp"
 
 
 int main() {
 
 
     std::cout<<"Start program \n";
-
-    Tree theTree(1024,4);
+    
+    auto start = std::chrono::high_resolution_clock::now();
+    Tree theTree(4194304,4);
+    auto stop  = std::chrono::high_resolution_clock::now();
+    
+    long duration = std::chrono::duration_cast<std::chrono::microseconds>(stop-start).count();
+    
+    std::cout<<"duration of generating a tree: "<<duration<<std::endl;
 
     //theTree.print_tree();
     Box* testing1 = theTree.find_box_by_index(4, 160, 1);
     std::cout<<"Testing the box: "<<*testing1;
     
-    Geometry::Coordinate aCoordinate1(1000,650,3.3);
+    Coordinate aCoordinate1(1000,650,3.3);
     
     Box* testing2 = theTree.find_box_by_coordinate(4, aCoordinate1, 1);
     std::cout<<"Testing the box: "<<*testing2;
@@ -93,8 +46,6 @@ int main() {
     return 0;
 }
  
-/*
- ToDo:
- - Makefile
- 
- */
+//https://github.com/nlohmann/json
+
+
