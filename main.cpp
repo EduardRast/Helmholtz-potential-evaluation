@@ -48,4 +48,5 @@ int main() {
  
 //https://github.com/nlohmann/json
 
+//g++ main.cpp Box.cpp Coordinate.cpp Source.cpp Tree.cpp -o run
 

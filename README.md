@@ -7,10 +7,11 @@ Fast evaluation of Helmholtz potential
 
 
 ##To do: 
-- add space for sources int the boxes
-- figure out the algorytm for NG asnd CG point samples 
-- add it to the boxes
-
+- look how coordinates are represeented in other projects
+- make a class that can read the file and create the coursec based on the file
+- make this file be initialized only once
+- pull request this branch to algorythm testing
+- ??? make a mock function that can write random points for me
 
 
 
