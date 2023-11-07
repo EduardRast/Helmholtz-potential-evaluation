@@ -41,11 +41,14 @@ int main() {
     Box* testing2 = theTree.find_box_by_coordinate(4, aCoordinate1, 1);
     std::cout<<"Testing the box: "<<*testing2;
 
-    
+    Distribution theDistribution;
+    theDistribution.get_sources_mockup();
+    theDistribution.print_sources();
    
     return 0;
 }
  
 //https://github.com/nlohmann/json
 
+//g++ main.cpp Box.cpp Coordinate.cpp Source.cpp Tree.cpp -o run
 
