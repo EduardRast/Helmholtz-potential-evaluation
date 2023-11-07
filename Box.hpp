@@ -18,10 +18,10 @@
 
 struct Box{  // node for the tree
     //OCF
-    Box(){};
+    Box(){}
     Box(const Box &aBox);
     Box& operator = (const Box &aBox);
-    ~Box(){};
+    ~Box(){}
     
     Box* parent;
     Box* children[8];
